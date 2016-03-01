@@ -1,0 +1,40 @@
+<html>
+<head>
+	<style>
+		html, body {
+			font-family: arial, helvetica, sans-serif;
+		}
+		.users__collection {
+			width: 300px;
+		}
+
+		.users__item-heading {
+			background: #eee;
+			padding: 10px 0;
+		}
+
+		ul {
+			padding: 0;
+			list-style-type: none;
+		}
+	</style>
+</head>
+<body>
+<h1><a href="/users">users</a></h1>
+<p>new tags: {[variable]}></p>
+<dl>
+	{{foreach users as user}}
+		<ul class="users users__collection list-reset">
+			<li class="users__item" data-id="{{user._id}}">
+				<h3 class="users__item-heading"><a href="user/{{user.name}}">{{user.name}}</a></h3>
+				<ul class="users__item-detail">
+					<li>job: <strong>{{user.job}}</strong></li>
+					<li>age: <strong>{{user.age}}</strong></li>
+				</ul>
+			</li>
+		</ul>
+	{{/foreach}}
+</dl>
+</body>
+</html>
+

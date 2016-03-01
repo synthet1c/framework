@@ -1,0 +1,10 @@
+module.exports = function( vars, fn ){
+	var template;
+
+	try{
+		template = '<!doctype html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Users create</title><link rel=\"stylesheet\" href=\"style.css\" /></head><body><h1>Create a new User</h1><a href=\"/users\">back to users</a><form action=\"/users\" method=\"POST\"><input type=\"hidden\" name=\"method\" value=\"PUT\" /><div class=\"form-group\"><label for=\"first\">first</label><input type=\"text\" name=\"first\" placeholder=\"first\" value=\"test\" /></div><div class=\"form-group\"><label for=\"last\">last</label><input type=\"text\" name=\"last\" placeholder=\"last\" value=\"test\" /></div><div class=\"form-group\"><label for=\"age\">age</label><input type=\"text\" name=\"age\" placeholder=\"age\" value=\"30\" /></div><div class=\"form-group\"><label for=\"job\">job</label><input type=\"text\" name=\"job\" placeholder=\"job\" value=\"tester\" /></div><div class=\"form-group\"><label for=\"password\">password</label><input type=\"text\" name=\"password\" placeholder=\"password\" value=\"P@55w0rd!\" /></div><input type=\"submit\" value=\"create user\" /></form></body></html>'
+	} catch( e ){
+		template = e;
+	}
+	return template;
+};

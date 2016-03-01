@@ -1,0 +1,59 @@
+$color-background: #191d21;
+$color-font-light: #dee1e1;
+$color-font-blue: #006ec7;
+$color-font-highlight-bright: #ffa900;
+$color-font-highlight: #ed1c24;
+
+$color-dark-border: #2c333b;
+$dark-border: 1px solid $color-dark-border;
+
+$color-menu: lighten( #2c333b, 20% );
+
+
+@mixin fa {
+	display                 : inline-block;
+	font                    : normal normal normal 1em/1 FontAwesome;
+	font-size               : inherit;
+	text-rendering          : auto;
+	-webkit-font-smoothing  : antialiased;
+	-moz-osx-font-smoothing : grayscale;
+}
+
+@mixin clear {
+	&::before, &::after {
+		content: " ";
+		clear: both;
+		display: block;
+	}
+}
+//
+
+$glass-opacity: 0.05;
+$glass-deg: 13deg;
+$glass-end: 60%;
+@mixin glass {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ffffff+100&0+0,0+87,0.2+100 */
+	background : -moz-linear-gradient($glass-deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) $glass-end, rgba(255, 255, 255, $glass-opacity) 100%); /* FF3.6+ */
+	background : -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop($glass-end, rgba(255, 255, 255, 0)), color-stop(100%, rgba(255, 255, 255, $glass-opacity))); /* Chrome,Safari4+ */
+	background : -webkit-linear-gradient($glass-deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) $glass-end, rgba(255, 255, 255, $glass-opacity) 100%); /* Chrome10+,Safari5.1+ */
+	background : -o-linear-gradient($glass-deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) $glass-end, rgba(255, 255, 255, $glass-opacity) 100%); /* Opera 11.10+ */
+	background : -ms-linear-gradient($glass-deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) $glass-end, rgba(255, 255, 255, $glass-opacity) 100%); /* IE10+ */
+	background : linear-gradient($glass-deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) $glass-end, rgba(255, 255, 255, $glass-opacity) 100%); /* W3C */
+	filter     : progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#33ffffff', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+}
+
+@mixin collection {
+	border-top    : $dark-border;
+	border-bottom : 1px solid darken($color-dark-border, 15%);
+	position      : relative;
+	padding       : .5em 0;
+}
+
+@mixin left-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	li {
+		float: left;
+	}
+}

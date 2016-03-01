@@ -1,0 +1,21 @@
+<html>
+<head>
+	<style>
+		body, html {
+			font-family : arial;
+		}
+	</style>
+</head>
+<body>
+	<h1>user details</h1>
+	<a href="/users">back to users</a>
+	<ul>
+		<li>name: <strong>{{$name}}</strong></li>
+		<li>age: <strong>{{$age}}</strong></li>
+		<li>job: <strong>{{$job}}</strong></li>
+		<li>_id: <strong>{{$_id.toJSON()}}</strong></li>
+	</ul>
+
+	{{include('/partials/test.html','another')}}
+</body>
+</html>

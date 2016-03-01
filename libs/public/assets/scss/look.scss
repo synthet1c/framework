@@ -1,0 +1,130 @@
+@import "vars";
+@import "typography";
+@import "posts";//
+
+html, body {
+	background  : #191d21;
+	color: $color-font-light;
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	@include glass;
+}
+
+main {
+	max-width : 1200px;
+	width: 90%;
+	margin: auto;
+}
+
+a {
+	color: $color-font-highlight;
+	text-decoration : none;
+
+	&:hover {
+		color: darken( $color-font-highlight, 20% );
+	}
+}
+
+.users__collection,
+.projects__collection {
+	width : 100%;
+}
+
+.users__item,
+.projects__item {
+	@include collection;
+}
+
+.users__item-heading,
+.projects__itme-heading {
+	padding    : 10px 0;
+}
+
+ul {
+	padding         : 0;
+	list-style-type : none;
+}
+
+.alert {
+	padding    : 1em;
+	background : #b6edfc;
+	border     : 1px solid #87d9fc;
+	color      : white;
+	margin     : .5em;
+}
+
+.menu {
+
+	margin-top: 1em;
+	@include clear;
+	width: 100%;
+	border-top : 1px solid $color-menu;
+	border-bottom : 1px solid $color-menu;
+
+	ul {
+		@include clear;
+		@include left-list;
+	}
+
+	li {
+		width: 3em;
+		padding: .5em 1em;
+		//border-top: 1px solid $color-menu;
+		//border-bottom: 1px solid $color-menu;
+		border-right: 1px solid $color-menu;
+		&:first-of-type {
+			border-left : 1px solid $color-menu;
+		}
+
+		a {
+			color: lighten( $color-menu, 20% );
+		}
+
+	}
+}
+
+
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+
+// user create form
+.user__create, .user__login {
+
+	max-width: 400px;
+	width: 80%;
+	margin: 2em auto;
+
+	.form-group {
+		@include clear;
+		padding: .5em 0;
+	}
+
+	input[type=text],
+	input[type=password],
+	input[type=email] {
+		width: 100%;
+		display: block;
+		border: none;
+		background: transparent;
+		color: $color-font-light;
+		font-size: 1.4em;
+		outline: none;
+		font-family : "Roboto", "Neue Helvetica W02", "Helvetica", Arial, sans-serif;
+		font-weight: 100;
+	}
+
+	label {
+		width: 100%;
+		display: block;
+		border-bottom: 1px solid $color-font-highlight;
+		color: $color-menu;
+	}
+}

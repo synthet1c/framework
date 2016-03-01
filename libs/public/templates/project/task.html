@@ -1,0 +1,22 @@
+{{include('header.html')}}
+<main>
+	<h1><a href="/projects">projects</a></h1>
+	{{include('menu.html')}}
+
+	<ul class="projects projects__collection list-reset">
+		<li class="projects__item">{{task.project.name}} {{task.name}}</li>
+	</ul>
+
+	<ul class="projects__item-detail">
+		<li>project: <strong>{{task.project.name}}</strong></li>
+		<li>id: <strong>{{task.id}}</strong></li>
+		<li>name: <strong>{{task.name}}</strong></li>
+		<li>client: <strong>{{task.project.client}}</strong></li>
+		<li>_id: <strong>{{task._id}}</strong></li>
+	</ul>
+
+	<p>{{task.description}}</p>
+</main>
+</body>
+</html>
+

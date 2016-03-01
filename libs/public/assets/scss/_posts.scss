@@ -1,0 +1,66 @@
+.post {
+
+	@include collection;
+	//@include glass; //
+
+	&:last-of-type {
+		//border-bottom: $dark-border;
+	}
+
+	&::after {
+		content: " ";
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index : -1;
+		//@include glass;
+	}
+}
+
+.post__new::before {
+	@include fa;
+	content: "\f0f6";
+	font-size: 2em;
+	color: $color-font-highlight-bright;
+}
+
+.post__author-social {
+
+	@include clear;
+
+	display: inline-block;
+	float: right;
+
+	li {
+		float: left;
+	}
+
+	a {
+
+		@include fa;
+
+		width: 1.5em;
+		height: 1.5em;
+		line-height: 1.5em;
+		text-align : center;
+		border: 1px solid $color-font-highlight;
+		-webkit-border-radius : 50%;
+		-moz-border-radius    : 50%;
+		border-radius         : 50%;
+
+		&.icon-facebook::before {
+			content : "\f09a";
+		}
+
+		&.icon-twitter::before {
+			content : "\f099";
+		}
+
+		&.icon-plus::before {
+			content : "\f067";
+		}
+	}
+
+}

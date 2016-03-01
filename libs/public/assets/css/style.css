@@ -1,0 +1,27 @@
+html, body {
+	font-family : arial, helvetica, sans-serif;
+
+	background: #191d21;
+}
+
+.users__collection {
+	width : 300px;
+}
+
+.users__item-heading {
+	background : #eeeeee;
+	padding    : 10px 0;
+}
+
+ul {
+	padding         : 0;
+	list-style-type : none;
+}
+
+.alert {
+	padding: 1em;
+	background: #b6edfc;
+	border: 1px solid #87d9fc;
+	color: white;
+	margin: .5em;
+}

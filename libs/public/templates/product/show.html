@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{product.name}}</title>
+</head>
+<body>
+
+<h2>{{product.name}}</h2>
+
+<section data-product-id="{{product._id}}">
+	<h3>{{product.name}}</h3>
+	<section class="product__description">{{product.description}}</section>
+	<figure id="product__variants">
+		<ul>
+
+		</ul>
+	</figure>
+	<figure class="product__reviews">
+		<ul>
+			{{foreach product.specs as spec}}
+				<li>
+					<h5 class="product__spec-title">{{spec.title}}</h5>
+					<div class="product__spec-content">{{spec.content}}</div>
+				</li>
+			{{/foreach}}
+		</ul>
+	</figure>
+
+</section>
+
+</body>
+</html>

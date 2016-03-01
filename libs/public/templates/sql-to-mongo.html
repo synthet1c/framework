@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+
+
+
+<div class="readme context-loader-container context-loader-overlay">
+	<article class="markdown-body js-file " data-task-list-update-url="https://gist.github.com/brpaz/ee9f1d3aff20e26d006d/file/mongodb.md">
+		<h1>
+			<a name="user-content-mongodb-cheat-sheet" class="anchor" href="#mongodb-cheat-sheet" rel="noreferrer"><span class="octicon octicon-link"></span></a>MongoDB cheat sheet</h1>
+
+		<h2>
+			<a name="user-content-overview" class="anchor" href="#overview" rel="noreferrer"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+		<p>Overview</p>
+
+		<p>MongoDB is a document database that provides high performance, high availability, and easy scalability.</p>
+
+		<ul class="task-list">
+			<li>Document Database</li>
+			<li>Documents (objects) map nicely to programming language data types.</li>
+			<li>Embedded documents and arrays reduce need for joins.</li>
+			<li>Dynamic schema makes polymorphism easier.</li>
+			<li>High Performance</li>
+			<li>Embedding makes reads and writes fast.</li>
+			<li>Indexes can include keys from embedded documents and arrays.</li>
+			<li>Optional streaming writes (no acknowledgments).</li>
+			<li>High Availability</li>
+			<li>Replicated servers with automatic master failover.</li>
+			<li>Easy Scalability</li>
+			<li>Automatic sharding distributes collection data across machines.</li>
+			<li>Eventually-consistent reads can be distributed over replicated servers.</li>
+		</ul>
+
+		<hr>
+
+		<h2>
+			<a name="user-content-use-cases" class="anchor" href="#use-cases" rel="noreferrer"><span class="octicon octicon-link"></span></a>Use cases</h2>
+
+		<p>NoSQL products (and among them MongoDB) should be used to meet challenges. If you have one of the following challenges, you should consider MongoDB:</p>
+
+		<h4>
+			<a name="user-content-you-expect-a-high-write-load" class="anchor" href="#you-expect-a-high-write-load" rel="noreferrer"><span class="octicon octicon-link"></span></a>You Expect a High Write Load
+		</h4>
+
+		<p>MongoDB by default prefers high insert rate over transaction safety. If you need to load tons of data lines with a low business value for each one, MongoDB should fit. Don't do that with $1M transactions recording or at least in these cases do it with an extra safety.</p>
+
+		<h4>
+			<a name="user-content-you-need-high-availability-in-an-unreliable-environment-cloud-and-real-life" class="anchor" href="#you-need-high-availability-in-an-unreliable-environment-cloud-and-real-life" rel="noreferrer"><span class="octicon octicon-link"></span></a>You need High Availability in an Unreliable Environment (Cloud and Real Life)
+		</h4>
+
+		<p>Setting replicaSet (set of servers that act as Master-Slaves) is easy and fast. Moreover, recovery from a node (or a data center) failure is instant, safe and automatic</p>
+
+		<h4>
+			<a name="user-content-you-need-to-grow-big-and-shard-your-data" class="anchor" href="#you-need-to-grow-big-and-shard-your-data" rel="noreferrer"><span class="octicon octicon-link"></span></a>You need to Grow Big (and Shard Your Data)
+		</h4>
+
+		<p>Databases scaling is hard (a single MySQL table performance will degrade when crossing the 5-10GB per table). If you need to partition and shard your database, MongoDB has a built in easy solution for that.</p>
+
+		<h4>
+			<a name="user-content-your-data-is-location-based" class="anchor" href="#your-data-is-location-based" rel="noreferrer"><span class="octicon octicon-link"></span></a>Your Data is Location Based
+		</h4>
+
+		<p>MongoDB has built in spacial functions, so finding relevant data from specific locations is fast and accurate.</p>
+
+		<p>Your Data Set is Going to be Big (starting from 1GB) and Schema is Not Stable</p>
+
+		<p>Adding new columns to RDBMS can lock the entire database in some database, or create a major load and performance degradation in other. Usually it happens when table size is larger than 1GB (and can be major pain for a system like BillRun that is described bellow and has several TB in a single table). As MongoDB is schema-less, adding a new field, does not effect old rows (or documents) and will be instant. Other plus is that you do not need a DBA to modify your schema when application changes.</p>
+
+		<h4>
+			<a name="user-content-examples" class="anchor" href="#examples" rel="noreferrer"><span class="octicon octicon-link"></span></a>Examples:</h4>
+
+		<ul class="task-list">
+			<li>Log Aggregation</li>
+			<li>Event Bases Systems</li>
+			<li>Hierarchical Aggregation</li>
+			<li>Product Catalgos</li>
+			<li>Session Storage</li>
+		</ul>
+
+		<h2>
+			<a name="user-content-when-not-to-use-mongodb" class="anchor" href="#when-not-to-use-mongodb" rel="noreferrer"><span class="octicon octicon-link"></span></a>When not to use MongoDB</h2>
+
+		<ul class="task-list">
+			<li>You need ACID Transactions.</li>
+			<li>You have a structured schema</li>
+		</ul>
+
+		<hr>
+
+		<h2>
+			<a name="user-content-links" class="anchor" href="#links" rel="noreferrer"><span class="octicon octicon-link"></span></a>Links</h2>
+
+		<ul class="task-list">
+			<li>UseCases -<a href="http://docs.mongodb.org/ecosystem/use-cases/" rel="noreferrer">http://docs.mongodb.org/ecosystem/use-cases/</a>
+			</li>
+			<li>CRUD - <a href="http://docs.mongodb.org/manual/applications/crud/" rel="noreferrer">http://docs.mongodb.org/manual/applications/crud/</a>
+			</li>
+			<li>Data Models - <a href="http://docs.mongodb.org/manual/data-modeling/" rel="noreferrer">http://docs.mongodb.org/manual/data-modeling/</a>
+			</li>
+		</ul>
+
+		<h2>
+			<a name="user-content-mapping-sql-to-mongodb" class="anchor" href="#mapping-sql-to-mongodb" rel="noreferrer"><span class="octicon octicon-link"></span></a>Mapping SQL to MongoDB</h2>
+
+		<h3>
+			<a name="user-content-converting-to-mongodb-terms" class="anchor" href="#converting-to-mongodb-terms" rel="noreferrer"><span class="octicon octicon-link"></span></a>Converting to MongoDB Terms
+		</h3>
+
+		<ul class="task-list">
+			<li>MYSQL EXECUTABLE ORACLE EXECUTABLE MONGODB EXECUTABLE</li>
+			<li>mysqld oracle mongod</li>
+			<li>mysql sqlplus mongo</li>
+		</ul>
+
+		<h3>
+			<a name="user-content-sql-mongodb" class="anchor" href="#sql-mongodb" rel="noreferrer"><span class="octicon octicon-link"></span></a>SQL MONGODB</h3>
+
+		<ul class="task-list">
+			<li>
+				<code>CREATE TABLE users (name VARCHAR(128), age
+					NUMBER)</code> - <code>db.createCollection("users")</code>
+			</li>
+			<li>
+				<code>INSERT INTO users VALUES ('Bob', 32)</code> - <code>db.users.insert({_id:'UsefulID', name: "Bob", age: 32, parent: 'ID', children: []})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users</code> - <code>db.users.find()</code>
+			</li>
+			<li>
+				<code>SELECT name, age FROM users</code> - <code>db.users.find({}, {name: 1, age: 1, _id:0})</code>
+			</li>
+			<li>
+				<code>SELECT name, age FROM users WHERE age = 33</code> - <code>db.users.find({age: 33}, {name: 1, age: 1, _id:0})</code>
+			</li>
+			<li>
+				<code>SELECT name FROM users WHERE _id = 'UsefulID'</code> - <code>db.users.findOne({_id: 'UsefulID'}).name</code> or <code>db.users.find({_id: 'UsefulID'})[0]].name</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age &gt; 33</code> - <code>db.users.find({age: {$gt: 33}})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age &lt;= 33</code> - <code>db.users.find({age: {$lte: 33}})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age &gt; 33 AND age &lt; 40</code> - <code>db.users.find({age: {$gt: 33, $lt: 40}})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age = 32 AND name = ‘Bob’</code> - <code>db.users.find({age: 32, name: “Bob”})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age = 33 OR name = ‘Bob’</code> - <code>db.users.find({$or:[{age:33}, {name: “Bob”}]})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE age = 33 ORDER BY name ASC</code> - <code>db.users.find({age: 33}).sort({name: 1})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users ORDER BY name DESC</code> - <code>db.users.find().sort({name: -1})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE name LIKE '%Joe%'</code> - <code>db.users.find({name: /Joe/})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users WHERE name LIKE 'Joe%'</code> - <code>db.users.find({name: /^Joe/})</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users LIMIT 10 SKIP 20</code> - <code>db.users.find().skip(20).limit(10)</code>
+			</li>
+			<li>
+				<code>SELECT * FROM users LIMIT 1</code> - <code>db.users.findOne()</code>
+			</li>
+			<li>
+				<code>SELECT DISTINCT name FROM users</code> - <code>db.users.distinct("name")</code>
+			</li>
+			<li>
+				<code>SELECT COUNT(*) FROM users</code> - <code>db.users.count()</code>
+			</li>
+			<li>
+				<code>SELECT COUNT(*) FROM users WHERE AGE &gt; 30</code> - <code>db.users.find({age: {$gt: 30}}).count()</code>
+			</li>
+			<li>
+				<code>SELECT COUNT(AGE) FROM users</code> - <code>db.users.find({age: {$exists: true}}).count()</code>
+			</li>
+			<li>
+				<code>UPDATE users SET age = 33 WHERE name = 'Bob'</code> - <code>db.users.update({name: "Bob"}, {$set: {age: 33}}, {multi: true})</code>
+			</li>
+			<li>
+				<code>UPDATE users SET age = age + 2 WHERE name = 'Bob'</code> - <code>db.users.update({name: "Bob"}, {$inc: {age: 2}}, {multi: true})</code>
+			</li>
+			<li>
+				<code>DELETE FROM users WHERE name = 'Bob'</code> - <code>db.users.remove({name: "Bob"})</code>
+			</li>
+			<li>
+				<code>CREATE INDEX ON users (name ASC)</code> - <code>db.users.ensureIndex({name: 1})</code>
+			</li>
+			<li>
+				<code>CREATE INDEX ON users (name ASC, age DESC)</code> - <code>db.users.ensureIndex({name: 1, age: -1})</code>
+			</li>
+			<li>
+				<code>EXPLAIN SELECT * FROM users WHERE age = 32</code> - <code>db.users.find({age: 32}).explain()</code>
+			</li>
+		</ul>
+
+		<h2>
+			<a name="user-content-queries-and-what-they-match" class="anchor" href="#queries-and-what-they-match" rel="noreferrer"><span class="octicon octicon-link"></span></a>Queries and What They Match
+		</h2>
+
+		<h3>
+			<a name="user-content-queries" class="anchor" href="#queries" rel="noreferrer"><span class="octicon octicon-link"></span></a>Queries</h3>
+
+		<ul class="task-list">
+			<li>
+				<code>{a: 10}</code> - Docs where a is 10, or an array containing the value 10.
+			</li>
+			<li>
+				<code>{a: 10, b: "hello"}</code> - Docs where a is 10 and b is "hello".
+			</li>
+			<li>
+				<code>{a: {$gt: 10}}</code> - Docs where a is greater than 10. Also available: <code>$lt (&lt;), $gte (&gt;=), $lte (&lt;=), and $ne (!=)</code>
+			</li>
+			<li>
+				<code>{a: {$in: [10, "hello"]}}</code> - Docs where a is either 10 or "hello".
+			</li>
+			<li>
+				<code>{a: {$all: [10, "hello"]}}</code> - Docs where a is an array containing both 10 and "hello".
+			</li>
+			<li>
+				<code>{"a.b": 10}</code> - Docs where a is an embedded document with b equal to 10.
+			</li>
+			<li>
+				<code>{a: {$elemMatch: {b: 1, c: 2}}}</code> - Docs where a is an array that contains an element with both b equal to 1 and c equal to 2.
+			</li>
+			<li>
+				<code>{$or: [{a: 1}, {b: 2}]}</code> - Docs where a is 1 or b is 2.
+			</li>
+			<li>
+				<code>{a: /^m/}</code> - Docs where a begins with the letter m.
+			</li>
+			<li>
+				<code>{a: {$mod: [10, 1]}}</code> - Docs where a mod 10 is 1.
+			</li>
+			<li>
+				<code>{a: {$type: 2}}</code> - Docs where a is a string (see bsonspec.org for more)
+			</li>
+		</ul>
+
+		<p>The following queries cannot use indexes as of MongoDB v2.0. These query forms should normally be
+			accompanied by at least one other query term which does use an index:</p>
+
+		<ul class="task-list">
+			<li>
+				<code>{a: {$nin: [10, "hello"]}}</code> - Docs where a is anything but 10 or "hello".
+			</li>
+			<li>
+				<code>{a: {$size: 3}}</code> - Docs where a is an array with exactly 3 elements.
+			</li>
+			<li>
+				<code>{a: {$exists: true}}</code> - Docs containing an a field.
+			</li>
+			<li>
+				<code>{a: /foo.*bar/}</code> - Docs where a matches the regular expression foo.*bar.
+			</li>
+			<li>
+				<code>{a: {$not: {$type: 2}}}</code> - Docs where a is not a string. $not negates any of the
+				other query operators.
+			</li>
+		</ul>
+
+		<h2>
+			<a name="user-content-update-modifiers" class="anchor" href="#update-modifiers" rel="noreferrer"><span class="octicon octicon-link"></span></a>Update Modifiers</h2>
+
+		<ul class="task-list">
+			<li>
+				<code>{$inc: {a: 2}}</code> - Increment a by 2.
+			</li>
+			<li>
+				<code>{$set: {a: 5}}</code> - Set a to the value 5.
+			</li>
+			<li>
+				<code>{$unset: {a: 1}}</code> - Delete the a key.
+			</li>
+			<li>
+				<code>{$push: {a: 1}}</code> - Append the value 1 to the array a.
+			</li>
+			<li>
+				<code>{$push: {a: {$each: [1, 2]}}}</code> - Append both 1 and 2 to the array a.
+			</li>
+			<li>
+				<code>{$addToSet: {a: 1}}</code> - Append the value 1 to the array a (if the value doesn’t already exist).
+			</li>
+			<li>
+				<code>{$addToSet: {a: {$each: [1, 2]}}}</code> - Append both 1 and 2 to the array a (if they don’t already exist).
+			</li>
+			<li>
+				<code>{$pop: {a: 1}}</code> - Remove the last element from the array a.
+			</li>
+			<li>
+				<code>{$pop: {a: -1}}</code> - Remove the first element from the array a.
+			</li>
+			<li>
+				<code>{$pull: {a: 5}}</code> - Remove all occurrences of 5 from the array a.
+			</li>
+			<li>
+				<code>{$pullAll: {a: [5, 6]}}</code> - Remove all occurrences of 5 or 6 from the array a
+			</li>
+		</ul>
+
+	</article>
+</div>
+
+</body>
+</html>

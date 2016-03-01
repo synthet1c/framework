@@ -1,0 +1,24 @@
+{{include('header.html')}}
+<main>
+	<h1>User Posts</h1>
+	{{include('menu.html')}}
+
+	<section class="post">
+		<form action="" class="form__post">
+			<fieldset class="form__group">
+				<label for="post_name"></label>
+				<input class="form__input--text" type="text" name="name" id="post_name" placeholder="Post Name">
+			</fieldset>
+		</form>
+	</section>
+
+	{{foreach posts as post}}
+		<section class="post" data-post-id="{{post._id}}">
+			<h4>{{post.author.first}} {{post.author.last}}</h4>
+			<h5>{{post.author.job}}</h5>
+
+			<p>{{post.post}}</p>
+		</section>
+	{{/foreach}}
+</main>
+{{include('footer.html')}}

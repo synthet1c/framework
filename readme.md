@@ -113,7 +113,67 @@ Model.toInstance( callback );
 Model.exec();
 ```
 
-By default models are fluent, so you can use continuation passing methods so you can see a flow between functions.
+# methods
+Methods on the model modify the underlying query object that get's passed to the mongo instance.
+
+By default models are fluent, so all query parameters can be chained to mutate the query object in a predictable way.
+
+## query parameters
+
+### find
+retrieve a document from a collection by the id provided.
+
+### all
+retrieve all documents from a collection in mongo
+
+### exists
+include documents from a collection where `key` exits in the document
+
+### missing
+include documents from a collection where `key` does not exist in the document
+
+### between
+include documents from a collection where a `key` is between the `min` and `max` values
+
+### larger
+include documents from a collection where `key` as a value larger than `max`
+
+### where
+include documents where `query` passes. `query` can be any mongo query
+
+### limit
+Limit will stop the mongo collection results from being larger than `max`
+
+### skip
+Skip is used in pagination to allow you to seperate large result sets into smaller more manageable ones.
+
+## result parameters
+
+### get
+get will whitelist the parameters that will be returned
+
+### not
+not will blacklist the fields that are returned
+
+## relationship modifiers
+
+### attach
+attach will look to the model for a relationship, asynchronously perform the query and attach the result to the current response.
+
+## update modifiers
+
+### save
+save will tell the framework that the model it's called on should save it's internal state to mongo
+
+## response processors
+
+### success
+Success will fire the mongo query and on success it will return an array of results
+```js
+Model.success(( results ) => {
+  results.map( ( result ) => { ... } );
+});
+```
 
 ##### example
 find `10` users whose age is greater than `31` but skip the first 5 results
@@ -190,6 +250,7 @@ Template creation timestamps are also checked to see if the html template has ch
 The templating language is very basic, providing only variable replacement and forEach loops to allow printing collections of data. You can even run any javascript function in scope on the template variables.
 
 ```html
+{{include file='something.html'}}
 <ul class="{{variable}}">
   {{foreach things as thing}}
     <li>
@@ -202,11 +263,14 @@ The templating language is very basic, providing only variable replacement and f
 ## filenames
 the filenames with the routes are dependent on being called the same thing as their controller method.
 
+## folder structure for templates
+```
 - public
 -- templates
 -- {{ module }}
 --- index
 --- show
+--- list
 --- create
 --- edit
---- list
+```

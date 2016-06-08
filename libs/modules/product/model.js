@@ -1,6 +1,6 @@
 var
 	elegant = require( LIB_DIR + 'model'),
-    Template = require( LIB_DIR + 'Template' );
+  Template = require( LIB_DIR + 'Template' );
 
 /**
  * Product model inherits all of the generic model functionality
